@@ -1,0 +1,15 @@
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\bin\Release\彩色连珠.exe
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\bin\Release\彩色连珠.pdb
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Release\彩色连珠.Form主窗口.resources
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Release\彩色连珠.Form保存成绩.resources
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Release\彩色连珠.Properties.Resources.resources
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Release\彩色连珠.csproj.GenerateResource.Cache
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Release\彩色连珠.exe
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Release\彩色连珠.pdb
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Release\彩色连珠.csprojResolveAssemblyReference.cache
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Release\彩色连珠.Form分享到新浪微博.resources
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Release\彩色连珠.Form新浪微博授权页.resources
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\bin\Release\彩色连珠.exe.config
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\bin\Release\AMicroblogAPI.dll
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\bin\Release\AMicroblogAPI.pdb
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\bin\Release\AMicroblogAPI.xml

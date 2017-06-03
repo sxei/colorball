@@ -1,0 +1,39 @@
+f:\我的文档\visual studio 2010\Projects\彩色连珠\彩色连珠\bin\Debug\彩色连珠.exe
+f:\我的文档\visual studio 2010\Projects\彩色连珠\彩色连珠\bin\Debug\彩色连珠.pdb
+f:\我的文档\visual studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.Form主窗口.resources
+f:\我的文档\visual studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.Properties.Resources.resources
+f:\我的文档\visual studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.exe
+f:\我的文档\visual studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.pdb
+F:\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.exe
+F:\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.pdb
+F:\彩色连珠\彩色连珠\bin\Debug\彩色连珠.exe
+F:\彩色连珠\彩色连珠\bin\Debug\彩色连珠.pdb
+F:\彩色连珠\彩色连珠\obj\x86\Debug\ResolveAssemblyReference.cache
+F:\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.Form主窗口.resources
+F:\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.Properties.Resources.resources
+F:\彩色连珠\彩色连珠\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
+F:\彩色连珠\彩色连珠\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
+C:\Documents and Settings\Administrator\桌面\刘显安\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.exe
+C:\Documents and Settings\Administrator\桌面\刘显安\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.pdb
+C:\Documents and Settings\Administrator\桌面\刘显安\彩色连珠\彩色连珠\bin\Debug\彩色连珠.exe
+C:\Documents and Settings\Administrator\桌面\刘显安\彩色连珠\彩色连珠\bin\Debug\彩色连珠.pdb
+C:\Documents and Settings\Administrator\桌面\刘显安\彩色连珠\彩色连珠\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\桌面\刘显安\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.Form主窗口.resources
+C:\Documents and Settings\Administrator\桌面\刘显安\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.Properties.Resources.resources
+C:\Documents and Settings\Administrator\桌面\刘显安\彩色连珠\彩色连珠\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
+C:\Documents and Settings\Administrator\桌面\刘显安\彩色连珠\彩色连珠\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.csproj.GenerateResource.Cache
+C:\Documents and Settings\Administrator\桌面\刘显安\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.Form保存成绩.resources
+C:\Documents and Settings\Administrator\桌面\刘显安\彩色连珠\彩色连珠\obj\x86\Debug\GenerateResource-ResGen.read.6.tlog
+C:\Documents and Settings\Administrator\桌面\刘显安\彩色连珠\彩色连珠\obj\x86\Debug\GenerateResource-ResGen.write.6.tlog
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.Form保存成绩.resources
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\bin\Debug\彩色连珠.exe.config
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\bin\Debug\AMicroblogAPI.dll
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\bin\Debug\AMicroblogAPI.pdb
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\bin\Debug\AMicroblogAPI.xml
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.csprojResolveAssemblyReference.cache
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.Form分享到新浪微博.resources
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.Form新浪微博授权页.resources
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Debug\Interop.WMPLib.dll
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.csproj.ResolveComReference.cache
+F:\我的文档\Visual Studio 2010\Projects\彩色连珠\彩色连珠\obj\x86\Debug\彩色连珠.Form1.resources

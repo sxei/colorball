@@ -1,0 +1,3138 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AMicroblogAPI</name>
+    </assembly>
+    <members>
+        <member name="T:AMicroblogAPI.HttpRequests.OAuthHttpPost">
+            <summary>
+            Performs a OAuth token-attached Http-Post request to the resource identified by the uri with the combination of OAuth parameters and the specified additionalParams(optional).
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.HttpRequests.HttpPost">
+            <summary>
+            Performs a Http-Post request to the resource identified by the <c>Uri</c> with the <c>PostData</c>.
+            <remarks>
+            OAtuh parameters are not sent in the reqeuest.
+            If an OAuth request is intended, please use <see cref="T:AMicroblogAPI.HttpRequests.OAuthHttpPost"/> or <see cref="T:AMicroblogAPI.HttpRequests.OAuthMultiPartHttpPost"/>.
+            </remarks>
+            </summary>
+            <example>
+            Below is an example of the post data:
+            <![CDATA[
+            action=submit&oauth_token%253Ddea035e505ac54b80c9c9077eebaafc7%2526oauth_callback%253Doob%2526from%253D%2526with_cookie%253D&oauth_token=dea035ea505ac54b280c9c9077deebaafc7&oauth_callback=oob&from=&forcelogin=
+            ]]>
+            </example>
+        </member>
+        <member name="T:AMicroblogAPI.HttpRequests.HttpRequest">
+            <summary>
+            Represents the base class for HTTP requests.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.HttpRequests.IHttpRequest">
+            <summary>
+            Defines methods to perform HTTP request.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.IHttpRequest.Request">
+            <summary>
+            Performs the HTTP request.
+            </summary>
+            <returns>The HTTP response.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.IHttpRequest.RequestAsync(AMicroblogAPI.Common.AsyncCallback{System.String})">
+            <summary>
+            Performs the HTTP request asynchronously.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.HttpRequests.HttpRequest.Uri">
+            <summary>
+            The uri the request goes to.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpRequest.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.HttpRequests.HttpRequest"/> with the specified <paramref name="uri"/>.
+            </summary>
+            <param name="uri">The uri the request goes to.</param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpRequest.Request">
+            <summary>
+            Performs the HTTP request.
+            </summary>
+            <returns>The server response string(UTF8 decoded).</returns>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpRequest.RequestAsync(AMicroblogAPI.Common.AsyncCallback{System.String})">
+            <summary>
+            The asynchronous implementation of <see cref="M:AMicroblogAPI.HttpRequests.IHttpRequest.Request"/>
+            </summary>
+            <param name="callback">The callback to invoke when the async requests completes.</param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpRequest.DoRequest(System.Object)">
+            <summary>
+            Performs the async request.
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpRequest.ConstructUri">
+            <summary>
+            When overriden in derived classes, constructs the final request uri based on relevent conditions.
+            </summary>
+            <returns>The final request uri constucted.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpRequest.GetConstructedUri">
+            <summary>
+            Returns the constructed uri.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpRequest.AppendHeaders(System.Net.WebHeaderCollection)">
+            <summary>
+            When overridden in derived classes, appends HTTP headers into the request.
+            </summary>
+            <param name="headers">The web header collection object.</param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpRequest.PrepareRequest(System.Net.HttpWebRequest)">
+            <summary>
+            When overridden in derived classes, sets additional request arguments on the web request object.
+            </summary>
+            <param name="webRequest">The web request object.</param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpRequest.WriteBody(System.IO.Stream)">
+            <summary>
+            When overridden in derived classes, writes data into the request stream.
+            <remarks>HTTP GET type request is not supported.</remarks>
+            </summary>
+            <param name="reqStream">The request stream object.</param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpRequest.RetrieveResponse(System.Net.WebResponse)">
+            <summary>
+            Retrieves the response from the request.
+            </summary>
+            <param name="webResponse"></param>
+            <returns>The server response string(UTF8 decoded).</returns>
+        </member>
+        <member name="P:AMicroblogAPI.HttpRequests.HttpRequest.Method">
+            <summary>
+            Gets or sets the HTTP method of the request.(i.e: POST, GET etc.)
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.HttpRequests.HttpRequest.ContentType">
+            <summary>
+            Gets or sets the content type of the request.(i.e: text/plain etc.)
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpPost.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.HttpRequests.HttpPost"/> with the specified <paramref name="uri"/>.
+            </summary>
+            <param name="uri">The uri to identify a resource in the remote server.</param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpPost.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.HttpRequests.HttpPost"/> with the specified <paramref name="uri"/> and <paramref name="postData"/>.
+            </summary>
+            <param name="uri">The uri to identify a resource in the remote server.</param>
+            <param name="postData">The data to be posted.</param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpPost.WriteBody(System.IO.Stream)">
+            <summary>
+            When overridden in derived classes, writes post data into the request stream.
+            </summary>
+            <remarks>
+            ASCII encoding is used to convert <see cref="P:AMicroblogAPI.HttpRequests.HttpPost.PostData"/> into bytes. 
+            Other encoding like UTF8 could cause unexpected issue in some cases like AddToFavorite.
+            </remarks>
+            <param name="reqStream">The request stream to write data with.</param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpPost.AppendHeaders(System.Net.WebHeaderCollection)">
+            <summary>
+            <see cref="M:AMicroblogAPI.HttpRequests.HttpRequest.AppendHeaders(System.Net.WebHeaderCollection)"/>
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.HttpRequests.HttpPost.Params">
+            <summary>
+            Gets or sets the custom post data(in <c>ParamPair</c> format, non-urlencoded).
+            <remarks>Do not UrlEncode the <c>ParamPair</c>, it is done inside this method.</remarks>
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.HttpRequests.HttpPost.PostData">
+            <summary>
+            Gets or sets the data to post (in url-encoded format).
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.OAuthHttpPost.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.HttpRequests.OAuthHttpPost"/> with the specified <paramref name="uri"/>.
+            </summary>
+            <param name="uri">The uri to identify a resource in the remote server.</param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.OAuthHttpPost.#ctor(System.String,System.Collections.Generic.IList{AMicroblogAPI.Common.ParamPair})">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.HttpRequests.OAuthHttpPost"/> with the specified <paramref name="uri"/> and <paramref name="additionalParams"/>.
+            </summary>
+            <param name="uri">The uri to identify a resource in the remote server.</param>
+            <param name="additionalParams">Additional data to post.</param>
+        </member>
+        <member name="P:AMicroblogAPI.HttpRequests.OAuthHttpPost.Params">
+            <summary>
+            Gets or sets the custom post data(in <c>ParamPair</c> format, non-urlencoded).
+            <remarks>Do not UrlEncode the <c>ParamPair</c>, it is done inside this method.</remarks>
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.HttpRequests.OAuthHttpPost.PostData">
+            <summary>
+            Gets the data to post.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.UserSuggestionInfo">
+            <summary>
+            Represents the user suggestion info.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserSuggestionInfo.ID">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserSuggestionInfo.ScreenName">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserSuggestionInfo.Remark">
+            <remarks/>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.TagInfo">
+            <summary>
+            Represents a group of tag.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.TagInfo.ID">
+            <summary>
+            Gets or sets the tag id.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.TagInfo.Tag">
+            <summary>
+            Gets or sets the tag id.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.TagInfo.Weight">
+            <summary>
+            Gets or sets the tag value.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.Source">
+            <summary>
+            Represents the source that a status is from.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Source.Content">
+            <summary>
+            Gets or sets the content of the source object.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.Geo">
+            <summary>
+            Represents a geo.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Geo.Point">
+            <summary>
+            Gets or sets the geo point.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.Common.RFC3986Encoder">
+            <summary>
+            Provides implementation of RFC3986 Percent Encoding mechanism.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Common.RFC3986Encoder.Encode(System.String)">
+            <summary>
+            Performs upper case percent encoding against the specified <paramref name="input"/>.
+            </summary>
+            <param name="input">The string to encode.</param>
+            <returns>Encode string.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.Common.RFC3986Encoder.UrlEncode(System.String)">
+            <summary>
+            Performs lower case percent encoding (url-encodes) on the <paramref name="input"/> as what HttpUtility.UrlEncode does.
+            </summary>
+            <param name="input">The string to encode.</param>
+            <returns>Encode string.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.Common.RFC3986Encoder.ToUnixTime(System.DateTime)">
+            <summary>
+            Gets the seconds from 1970/1/1.
+            </summary>
+            <param name="time">The time to calculate from.</param>
+            <returns>The seconds.</returns>
+        </member>
+        <member name="T:AMicroblogAPI.Common.LocalErrorCode">
+            <summary>
+            Defines the local error codes.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.Common.LocalErrorCode.UnknowError">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.LocalErrorCode.NetworkUnavailable">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.LocalErrorCode.ProcessResponseErrorHandlingFailed">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.LocalErrorCode.ArgumentNotProvided">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.LocalErrorCode.ArgumentInvalid">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.LocalErrorCode.CredentialInvalid">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.LocalErrorCode.ParseResponseFailed">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.LocalErrorCode.AppKeyOrSecretNotProvided">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.LocalErrorCode.AccessTokenNotObtained">
+            <remarks/>
+        </member>
+        <member name="T:AMicroblogAPI.Common.IResponseErrorHandler">
+            <summary>
+            Defines methods to handle HTTP response error. 
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Common.IResponseErrorHandler.Handle(AMicroblogAPI.Common.ResponseErrorData)">
+            <summary>
+            Handles the response error with the <paramref name="errorData"/>.
+            </summary>
+            <param name="errorData">The contextual data of the response error.</param>
+        </member>
+        <member name="T:AMicroblogAPI.Common.AsyncCallback`1">
+            <summary>
+            Represents the delegate of a async call's callback with the specified type of result data.
+            </summary>
+            <typeparam name="T">The type of the result data.</typeparam>
+            <param name="result">The result of async call.</param>
+        </member>
+        <member name="T:AMicroblogAPI.Common.VoidAsyncCallback">
+            <summary>
+            Represents the delegate of a async call's callback.
+            </summary>
+            <param name="result">The result of async call.</param>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.Counters">
+            <summary>
+            Represents a group of counters.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Counters.Items">
+            <summary>
+            Gets the counter.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.Common.ResponseErrorData">
+            <summary>
+            Represents the contextual data of a HTTP response error.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.ResponseErrorData.RequestUri">
+            <summary>
+            Gets the request uri (absolute url, probably with query strings if it's not a POST request).
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.ResponseErrorData.ErrorCode">
+            <summary>
+            Gets the error code returned by server.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.ResponseErrorData.Exception">
+            <summary>
+            Gets The exception of <see cref="T:AMicroblogAPI.Common.AMicroblogException"/> type.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.ResponseErrorData.HttpMethod">
+            <summary>
+            Gets the rquest method.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.ResponseErrorData.ContentType">
+            <summary>
+            Gets the rquest content type.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.Common.OAuthAccessToken">
+            <summary>
+            Represents the OAuth access token.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.OAuthAccessToken.Token">
+            <summary>
+            Gets or sets the token field.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.OAuthAccessToken.RefreshToken">
+            <summary>
+            Gets or sets the refresh token field.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.OAuthAccessToken.UserID">
+            <summary>
+            Gets or sets the user id field.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.OAuthAccessToken.ExpiresIn">
+            <summary>
+            Gets or sets the expire in field.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.Environment">
+            <summary>
+            Provides access to environmental variables, like current Access Token.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Environment.#cctor">
+            <summary>
+            Initializes the envrionment settings.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Environment.init(System.String,System.String,System.String)">
+            <summary>
+            初始化appKey和appSecret
+            </summary>
+            <param name="appKey">您的应用的唯一key</param>
+            <param name="appSecret"></param>
+            <param name="redirectUri">用户定义的重定向页面</param>
+        </member>
+        <member name="M:AMicroblogAPI.Environment.HandleResponseError(System.Object,AMicroblogAPI.Common.ResponseErrorEventArgs)">
+            <summary>
+            Handles the response error event.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Environment.ValidateAccessToken">
+            <summary>
+            Validates whether the current access token is null or not.
+            </summary>
+            <remarks><see cref="T:AMicroblogAPI.Common.AMicroblogException"/> is thrown if null.</remarks>
+            <exception cref="T:AMicroblogAPI.Common.AMicroblogException">If the access token is null.</exception>
+        </member>
+        <member name="F:AMicroblogAPI.Environment.OAuthSignatureMethod">
+            <summary>
+            Gets or sets the OAuth signature method. Default to "HMAC-SHA1".
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.Environment.OAuthVersion">
+            <summary>
+            Gets or sets the OAuth version. Default to "1.0".
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.Environment.OAuthCallback">
+            <summary>
+            Gets or sets the OAuth callback. Default to "oob".
+            </summary>
+            <remarks>In a web application, consider overrides this field to a desired uri during the RequestToken call.</remarks>
+        </member>
+        <member name="M:AMicroblogAPI.Environment.NotifyResponseError(AMicroblogAPI.Common.ResponseErrorEventArgs)">
+            <summary>
+            Triggers the <see cref="E:AMicroblogAPI.Environment.ResponseError"/>.
+            </summary>
+            <remarks>To insure that each event handler has a chance to process the event, any exception is suspended.</remarks>
+        </member>
+        <member name="P:AMicroblogAPI.Environment.AppKey">
+            <summary>
+            Gets the app key configured in app.config.
+            </summary>
+            <remarks>In a web application, this field should be set manually each time a OAuth request is sent.</remarks>
+        </member>
+        <member name="P:AMicroblogAPI.Environment.RedirectUri">
+            <summary>
+            Gets the redirect Uri configured in app.config.
+            </summary>
+            <remarks>In a web application, this field should be set manually each time a OAuth request is sent.</remarks>
+        </member>
+        <member name="P:AMicroblogAPI.Environment.AppSecret">
+            <summary>
+            Gets the app secret configured in app.config.
+            </summary>
+            <remarks>In a web application, this field should be set manually each time a OAuth request is sent.</remarks>
+        </member>
+        <member name="P:AMicroblogAPI.Environment.AccessToken">
+            <summary>
+            Gets the current access token generated after login.
+            </summary>
+            <remarks>
+            This AccessToken is used to construct OAuth authorization header for all HTTP requests which requires OAuth authorization.
+            By default, this token is set after a successful login.
+            In web application, this field should be set manually each time a OAuth request is sent. In this case, consider stores the access token in session or somewhere after login.
+            </remarks>
+        </member>
+        <member name="P:AMicroblogAPI.Environment.CurrentUserAccount">
+            <summary>
+            Gets the current login user's SINA account name.
+            </summary>
+        </member>
+        <member name="E:AMicroblogAPI.Environment.ResponseError">
+            <summary>
+            Represents the event that a HTTP response comes back in error.
+            </summary>
+            <remarks>Exception in the event handlers of this event is not thrown.</remarks>
+        </member>
+        <member name="P:AMicroblogAPI.Environment.Configuration">
+            <summary>
+            Gets or sets the configuration of AMicroblogAPI.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Environment.ResponseErrorHandlingEnabled">
+            <summary>
+            Gets or sets a boolean value indicating whether response error handling is enabled.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Environment.ResponseErrorHandlers">
+            <summary>
+            Gets the eesponse error handlers.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.BooleanResultInfo">
+            <summary>
+            Represents a boolean result.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.BooleanResultInfo.Value">
+            <remarks/>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.ExistsFriendshipResultInfo">
+            <summary>
+            Represents a friendship existence result.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.Common.HttpMethod">
+            <summary>
+            Defines constants of HTTP methods. 
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.Common.HttpMethod.Get">
+            <summary>
+            Represent the HTTP method 'GET'.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.Common.HttpMethod.Post">
+            <summary>
+            Represent the HTTP method 'POST'.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.Common.HttpMethod.Delete">
+            <summary>
+            Represent the HTTP method 'DELETE'.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.Users">
+            <summary>
+            Represents a group of users.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Users.Items">
+            <summary>
+            Gets the users.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Users.NextCursor">
+            <summary>
+            Gets or sets the next page cursor.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Users.PreviousCursor">
+            <summary>
+            Gets or sets the previous page cursor.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Users.TotalNumber">
+            <summary>
+            Gets or sets the total_number.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.Urls">
+            <summary>
+            Represents a group of urls.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Urls.Items">
+            <summary>
+            Gets the statuses.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.ErrorResponse">
+            <summary>
+            Represents an error response from remote server.
+            <remarks>
+            {"error":"User does not exists!","error_code":20003,"request":"/2/users/show.json"}
+            </remarks>
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.ErrorResponse.Uri">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.ErrorResponse.ErrorCode">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.ErrorResponse.ErrorMessage">
+            <remarks/>
+        </member>
+        <member name="T:AMicroblogAPI.Common.ParamPair">
+            <summary>
+            Represents a Name/Value pair.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Common.ParamPair.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.Common.ParamPair"/>.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Common.ParamPair.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.Common.ParamPair"/> with the name and value.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:AMicroblogAPI.Common.ParamPair.CompareTo(AMicroblogAPI.Common.ParamPair)">
+            <summary>
+            Compares current <c>ParamPair</c> object with another one.
+            </summary>
+            <param name="other">The other <c>ParamPair</c> to compare to.</param>
+            <returns>The compare result.</returns>
+        </member>
+        <member name="P:AMicroblogAPI.Common.ParamPair.Name">
+            <summary>
+            Gets or sets the name field.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.ParamPair.Value">
+            <summary>
+            Gets or sets the value field.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.RelationshipInfo">
+            <summary>
+            Represents the relationship info of two users.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RelationshipInfo.Source">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RelationshipInfo.Target">
+            <remarks/>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.RateLimitStatus">
+            <summary>
+            Represents the API rate limit status.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RateLimitStatus.APIRateLimits">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RateLimitStatus.IPLimit">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RateLimitStatus.LimitTimeUnit">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RateLimitStatus.RemainingUserHits">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RateLimitStatus.ResetTime">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RateLimitStatus.ResetTimeInSeconds">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RateLimitStatus.UserLimit">
+            <remarks/>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.APIRateLimit">
+            <summary>
+            Represents APIRateLimit.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.APIRateLimit.API">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.APIRateLimit.Limit">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.APIRateLimit.LimitTimeUnit">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.APIRateLimit.RemainingHits">
+            <remarks/>
+        </member>
+        <member name="T:AMicroblogAPI.Common.ResponseErrorEventArgs">
+            <summary>
+            Represents the event args of ResponseError event.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Common.ResponseErrorEventArgs.#ctor(System.String,AMicroblogAPI.Common.AMicroblogException,System.String,System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.Common.ResponseErrorEventArgs"/> with the specified parameters.
+            </summary>
+            <param name="requestUri">The request uri.</param>
+            <param name="exception">The exception of <see cref="T:AMicroblogAPI.Common.AMicroblogException"/> type.</param>
+            <param name="httpMethod">The request method.</param>
+            <param name="contentType">The request content type.</param>
+        </member>
+        <member name="P:AMicroblogAPI.Common.ResponseErrorEventArgs.ErrorData">
+            <summary>
+            Gets the contextual data of a HTTP response error.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.ResponseErrorEventArgs.IsHandled">
+            <summary>
+            Gets or sets a boolean value indicating whether the exception is handled.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.AMicroblog">
+            <summary>
+            Provides APIs to access weibo.com.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.MyHttpRequest(System.String,System.String)">
+            <summary>
+            私有的发送数据通用接口函数
+            </summary>
+            <param name="url">要发送请求的包含完整参数的URL</param>
+            <returns>返回的字符串</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetAuthorizationUri(System.String,System.String,System.String,System.String)">
+            <summary>
+            Returns the authorization uri.
+            </summary>
+            <remarks>
+            See http://open.weibo.com/wiki/2/Oauth/authorize
+            </remarks>
+            <param name="redirectUri">The url which the browser will navigate to after a success authorization. It should match the callback url set in your app.</param>
+            <param name="responseType">The expected type of response, available option: code, token.</param>
+            <param name="state">A customized string to pass to authorization server and will be passed back after the authorization.</param>
+            <param name="display">The authorization page display mode, available option: default,mobile,popup,wap1.2,wap2.0,js,apponweibo.</param>
+            <returns>The authorization code(aka oauth_verifier).</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetAccessTokenByAuthorizationCode(System.String,System.String)">
+            <summary>
+            Exchanges the authorization code for an access token.
+            </summary>
+            <remarks>
+            See http://open.weibo.com/wiki/2/Oauth/access_token
+            Both Http-Get and Http-Post can work. In this API is implemented with Http-Get.
+            </remarks>
+            <param name="authorizationCode">The authorization code previously obtained.</param>
+            <param name="redirectUri">The redirection uri.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.RefreshAccessToken(System.String)">
+            <summary>
+            Refreshes the access token by a refresh token.
+            </summary>
+            <param name="refreshToken">The refresh token.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetAccessTokenByPassword(System.String,System.String)">
+            <summary>
+            Performs a OAuth login with the specified <paramref name="userName"/> and <paramref name="password"/>.
+            </summary>
+            <remarks>
+            See http://open.weibo.com/wiki/Oauth2
+            The app must be verified before this API can work.
+            </remarks>
+            <param name="userName">The user name of a SINA passport.</param>
+            <param name="password">The password of a SINA passport.</param>
+            <returns>The access token.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.Logout">
+            <summary>
+            Performs a local logout. Cleans the Environment data.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetUID">
+            <summary>
+            Verifies whether the current user has SINA microblog service enabled.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Account/verify_credentials </remarks>
+            <returns>The user info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.EndSession">
+            <summary>
+            Terminates the web-login user's session.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Account/end_session </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetRateLimitStatus">
+            <summary>
+            Retrieves the app's rate limit. 
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Account/rate_limit_status </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.UpdateProfileImage(System.String)">
+            <summary>
+            Updates the profile image of the current user.
+            </summary>
+            <remarks>
+            Extra permission required to call this API.
+            Returns error "40070:Error: not enough permission to call the api, pls contact the app developer." if permission insufficient.
+            See http://open.weibo.com/wiki/2/Account/update_profile_image
+            </remarks>
+            <param name="imageFileLocation">The file location of the image file to upload. Limit as 700KB</param>
+            <returns>The posted status.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.UpdateProfile(AMicroblogAPI.DataContract.UpdateProfileInfo)">
+            <summary>
+            Updates the profile info of current user.
+            </summary>
+            <remarks>
+            Extra permission required to call this API.
+            Returns error "40070:Error: not enough permission to call the api, pls contact the app developer." if permission insufficient.
+            See http://open.weibo.com/wiki/2/Account/update_profile
+            </remarks>
+            <param name="updateProfileInfo">The update profile info.</param>
+            <returns>The user info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetPrivacy">
+            <summary>
+            Retrieves the privacy info of the current user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Account/get_privacy </remarks>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.UpdatePrivacy(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Updates the privacy settings of the current user.
+            </summary>
+            <remarks>
+            See http://open.weibo.com/wiki/2/Account/update_privacy 
+            Extra permission required to call this API.
+            Returns error "40070:Error: not enough permission to call the api, pls contact the app developer." if permission insufficient.
+            </remarks>
+            <param name="commentPrivacy">
+            The comment privacy, indicating who can comment the statuses of mine. 
+            0: All(default), 1: People I am following 
+            </param>
+            <param name="messagePrivacy">
+            The message privacy, indicating who can send private message to me.
+            0: All 1:People I am following(default)
+            </param>
+            <param name="realNamePrivacy">
+            The realname privacy, indicating whether others can search me by real name.
+            0: Allow 1: Not Allow(deault)
+            </param>
+            <param name="geoPrivacy">
+             The geo privacy, indicating whether show geo info in my statuses if there is any.
+             0: Allow(default) 1: Not Allow
+            </param>
+            <param name="badgePrivacy">
+            The badge privacy, indicating whether display my badge.
+            0: Display(default) -1: Hide
+            </param>
+            <returns>A boolean value indicating whether the update succeed.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetStatus(System.Int64)">
+            <summary>
+            Retrieves the info of a microblog status by its id.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/show </remarks>
+            <param name="statusID">The id to identify the status.</param>
+            <returns>The status info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.PostStatus(AMicroblogAPI.DataContract.UpdateStatusInfo)">
+            <summary>
+            发布一条微博到weibo.com.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/update </remarks>
+            <param name="updateStatusInfo">The status info object.</param>
+            <returns>The posted status.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.PostStatus(System.String,System.String)">
+            <summary>
+            【By刘显安】发布一条不带图片的微博，参数为string类型的文本内容和accessToken
+            </summary>
+            <param name="status">要发布的文本微博</param>
+            <returns>返回的微博信息</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.PostStatus(System.String)">
+            <summary>
+            【By刘显安】发布一条不带图片的微博，参数为要发布的文本微博
+            </summary>
+            <param name="status">要发布的文本微博</param>
+            <returns>返回的微博信息</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.QueryIdByMid(System.String)">
+            <summary>
+            【By刘显安】根据Mid返回Id，目前貌似总是报错，先不管
+            </summary>
+            <param name="mid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.PostStatusWithPic(AMicroblogAPI.DataContract.UpdateStatusWithPicInfo)">
+             <summary>
+             Posts a with-pic status to weibo.com.
+             See <seealso cref="M:AMicroblogAPI.AMicroblog.PostStatus(AMicroblogAPI.DataContract.UpdateStatusInfo)"/>
+             </summary>
+             <remarks>
+             'status' should not be empty, otherwise bad reuqest error 400 returned.
+             posting duplicate status also causes return 400 error.
+             See http://open.weibo.com/wiki/2/Statuses/upload
+            </remarks>
+             <param name="updateStatusWithPicInfo">The status info object.</param>
+             <returns>The posted status.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.DeleteStatus(System.Int64)">
+            <summary>
+            Deletes a microblog status by its id.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/destroy </remarks>
+            <param name="statusID">The id to identify the status.</param>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.Forward(System.Int64,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            转发一条微博
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/repost </remarks>
+            <param name="statusID">The id to identify the status to be reposted.</param>
+            <param name="repostStatusText">The status text to add in addition to the reposted status.</param>
+            <param name="commentToAuthor">Indicates whether this status is as a comment to the author of the reposted status.</param>
+            <param name="commentToOriginalAuthor">Indicates whether this status is as a comment to the author of the original status if there is any.</param>
+            <returns>The status info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.Forward(System.Int64,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            通过指定的accessToken转发一条微博
+            </summary>
+            <param name="statusID"></param>
+            <param name="repostStatusText"></param>
+            <param name="accessToken"></param>
+            <param name="commentToAuthor"></param>
+            <param name="commentToOriginalAuthor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.Comment(System.Int64,System.String,System.Boolean)">
+            <summary>
+            评论一条微博
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/comment </remarks>
+            <param name="statusID">The status id to identify the status.</param>
+            <param name="comment">The comment text.</param>
+            <param name="commentToOriginalAuthor">Indicate whether to comment to the original status if the status is a reposted one.</param>
+            <returns>The comment info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetComments(System.Int64,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            获取一条指定微博的评论列表
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/comments </remarks>
+            <param name="statusID">The ID of the target status</param>
+            <param name="page">The page index. Default to 1.</param>
+            <param name="count">The number of statuses to return, if not specified, default to 20. Maxmum as 200.</param>
+            <returns>The comments.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.ReplyComment(System.Int64,System.String,System.Int64,System.Boolean)">
+            <summary>
+            回复一条评论
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/reply </remarks>
+            <param name="commentID">The comment id to comment to.</param>
+            <param name="comment">The comment text.</param>
+            <param name="statusID">The status which owns the comment.</param>
+            <param name="withoutMention">Indicates whether to include the '@' ref.</param>
+            <returns>The comment info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.DeleteComment(System.Int64)">
+            <summary>
+            Deletes a comment identified by the specified <paramref name="commentID"/>.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/comment_destroy </remarks>
+            <param name="commentID">The comment id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.DeleteComments(System.Int64[])">
+            <summary>
+            Deletes multiple comments.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/comment/destroy_batch </remarks>
+            <param name="commentIDs">The comments ids.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.SearchStatuses(System.String,System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Boolean,System.Boolean)">
+            <summary>
+            Searches microblog statuses by the specified conditions.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/search 
+            Extra permission required to call this API.
+            </remarks>
+            <param name="keyword">The keyword to search by.</param>
+            <param name="statusType">The type of statuses to search. 4: forwarded, 5: original, 0: all, default to 0.</param>
+            <param name="includePic">Indicates whether searching in statues with pic or not with pic. If not specified, search in both.</param>
+            <param name="authorID">The author ID. If specified, perform the search in the statuses of this author only.</param>
+            <param name="provice">The provice id.</param>
+            <param name="city">The city id.</param>
+            <param name="startTime">The start time.</param>
+            <param name="endTime">The end time.</param>
+            <param name="page">The page index.</param>
+            <param name="count">The number of statuses to return, if not specified, default to 10.</param>
+            <param name="returnCounter">Indicates whether to return the counter info or not.</param>
+            <param name="currentAppOnly">Indicates whether retrieve the statuses the posted from the current app only.</param>
+            <returns>The statuses found.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetUserStatuses(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},AMicroblogAPI.DataContract.StatusType,System.Boolean,System.Boolean)">
+            <summary>
+            Retrieves a certain mumber of latest statuses of the specified user or current user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/user_timeline </remarks>
+            <param name="userID">The user of whoes statues to retrieve, if not specified, default to current user.</param>
+            <param name="sinceID">Filter condition, only retrives the statuses after <paramref name="sinceID"/>.</param>
+            <param name="maxID">Filter condition, only retrives the statuses before <paramref name="maxID"/>.</param> 
+            <param name="page">The page index.</param>
+            <param name="count">The number of statuses to return, if not specified, default to 20.</param>
+            <param name="feature">The type of statuses to retrieve.</param>
+            <param name="currentAppOnly">Indicates whether retrieve the statuses the posted from the current app only.</param>
+            <param name="trimUser">Indicates whether the user field of the status only return userID.</param>
+            <returns>The statuses.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetPublicStatuses(System.Int32,System.Boolean)">
+            <summary>
+            Retrieves a certain mumber of latest statuses of the public users.
+            </summary>
+            <remarks>
+            Not login required.
+            See http://open.weibo.com/wiki/2/Statuses/public_timeline 
+            </remarks>
+            <param name="count">The number of statuses to return, if not specified, default to 20.</param>
+            <param name="currentAppOnly">Indicates whether retrieve the statuses the posted from the current app only.</param>
+            <returns>The statuses retrieved.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFriendsStatuses(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32},AMicroblogAPI.DataContract.StatusType,System.Boolean)">
+            <summary>
+            Retrieves a certain mumber of latest statuses of the current user and the friends he is following.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/friend_timeline </remarks>
+            <param name="sinceID">Filter condition, only retrives the statuses after <paramref name="sinceID"/>.</param>
+            <param name="maxID">Filter condition, only retrives the statuses before <paramref name="maxID"/>.</param>
+            <param name="page">The page index.</param>
+            <param name="count">The number of statuses to return, if not specified, default to 20.</param>
+            <param name="feature">The feature to retrieve.</param>
+            <param name="currentAppOnly">Indicates whether retrieve the statuses the posted from the current app only.</param>
+            <returns>The statuses.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetMentions(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the statuses which mentions the current user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/mentions </remarks>
+            <param name="sinceID">Filter condition, only retrives the statuses after <paramref name="sinceID"/>.</param>
+            <param name="maxID">Filter condition, only retrives the statuses before <paramref name="maxID"/>.</param>
+            <param name="page">The page index.</param>
+            <param name="count">The number of statuses to return, if not specified, default to 20.</param>
+            <returns>The statuses.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetCommentsTimeline(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the comments sent/received by the current user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/comments_timeline </remarks>
+            <param name="sinceID">Filter condition, only retrives the statuses after <paramref name="sinceID"/>.</param>
+            <param name="maxID">Filter condition, only retrives the statuses before <paramref name="maxID"/>.</param>
+            <param name="page">The page index.</param>
+            <param name="count">The number of statuses to return, if not specified, default to 20.</param>
+            <returns>The statuses.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetCommentsByMe(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the comments sent by the current user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/comments_by_me </remarks>
+            <param name="sinceID">Filter condition, only retrives the statuses after <paramref name="sinceID"/>.</param>
+            <param name="maxID">Filter condition, only retrives the statuses before <paramref name="maxID"/>.</param>
+            <param name="page">The page index.</param>
+            <param name="count">The number of statuses to return, if not specified, default to 20.</param>
+            <returns>The statuses.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetCommentsToMe(System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the comments sent to the current user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/comments_to_me </remarks>
+            <param name="sinceID">Filter condition, only retrives the statuses after <paramref name="sinceID"/>.</param>
+            <param name="maxID">Filter condition, only retrives the statuses before <paramref name="maxID"/>.</param>
+            <param name="page">The page index.</param>
+            <param name="count">The number of statuses to return, if not specified, default to 20.</param>
+            <returns>The statuses.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetCountersOfCommentNForward(System.Int64[])">
+            <summary>
+            Retrieves the comment counter and repost counter of the specified statuses.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/counts </remarks>
+            <param name="statusIDs">The ids of the statuses to query. At most 20.</param>
+            <returns>The counters.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetUnreadInfo(System.Int64)">
+            <summary>
+            Retrieves the unread counters of the current user.
+            </summary>
+            <remarks>
+            See http://rm.api.weibo.com/2/remind/unread_count.json
+            </remarks>
+            <param name="userID">The user id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.ResetCounter(AMicroblogAPI.DataContract.CounterType)">
+            <summary>
+            Resets the unread counters of the specified type to zero.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/reset_count </remarks>
+            <param name="counterType">The type of counter to reset.</param>
+            <returns>A boolean value indicating whether the counter resets to zero.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetEmotions(AMicroblogAPI.DataContract.EmotionType,System.String)">
+            <summary>
+            Retrieves the system defined emotions.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Emotions </remarks>
+            <param name="emotionType">The type of emotion to retrive.</param>
+            <param name="language">The language. i.e: cnname, twname</param>
+            <returns>The emotions retrieved.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetUserInfo(System.Int64)">
+            <summary>
+            Retrives the info of the specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Users/show </remarks>
+            <param name="userID">The user id.</param>
+            <returns>The user info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetUserInfo(System.String)">
+            <summary>
+            根据昵称返回某一用户的信息
+            </summary>
+            <param name="screenName">用户的昵称</param>
+            <returns>用户信息</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetHotUsers(System.String)">
+            <summary>
+            Retrieves the hot users of the specified <paramref name="category"/>.
+            </summary>
+            <remarks>
+            default 人气关注
+            ent 影视名星
+            hk_famous 港台名人
+            model 模特
+            cooking 美食&amp;健康
+            sport 体育名人
+            finance 商界名人
+            tech IT互联网
+            singer 歌手
+            writer 作家
+            moderator 主持人
+            medium 媒体总编
+            stockplayer 炒股高手
+            See http://open.weibo.com/wiki/2/Users/hot
+            </remarks>
+            <param name="category">The user category, if not specified, default to 'default'.</param>
+            <returns>The users returned.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.UpdateFriendRemark(System.Int64,System.String)">
+            <summary>
+            Updates the remark of a friend of the current user.
+            </summary>
+            <remarks>
+            See http://open.weibo.com/wiki/2/User/friends/update_remark
+            </remarks>
+            <param name="friendUserID">The friend's user id.</param>
+            <param name="remark">The remark.</param>
+            <returns>The friend's info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetSuggestedUsers">
+            <summary>
+            Returns a bunch of users the current user may be interested in.
+            </summary>
+            <remarks>
+            See http://open.weibo.com/wiki/2/Users/suggestions
+            </remarks>
+            <returns>The users returned.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.SearchUsers(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Boolean)">
+            <summary>
+            Retrieves the users by the specified keyword.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Users/search 
+            Extra permission required to call this API.
+            </remarks>
+            <param name="keyword">The keyword to search by.</param>
+            <param name="page">The page index.</param>
+            <param name="count">The count of a page. If not provided, defaults to 10.</param>
+            <param name="currentAppOnly">Indicates whether retrieve the statuses the posted from the current app only.</param>
+            <returns>The users found.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetUserSearchSuggestions(System.String,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the user suggestions by the specified keyword.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Search/suggestions/at_users </remarks>
+            <param name="keyword">The keyword to search by.</param>
+            <param name="type">The type of uses to search. 0: friends, 1: followers</param>
+            <param name="count">The count of a page. If not provided, defaults to 10.</param>
+            <param name="range">The range to search in. 0: search in name, 1: search in remark, 2: search both. Default to 2.</param>
+            <returns>The user suggestions found.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFriends(System.Int64,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the friends of the specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/friends </remarks>
+            <param name="userID">The user id. If not provided, defaults to current user.</param>
+            <param name="cursor">The cursor. -1 means the first page. If provides, next cursor will be returned in the response.</param>
+            <param name="count">The count of a page. If not provided, defaults to 20.</param>
+            <returns>The friends retrieved.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFriends(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the friends of the specified user.
+            </summary>
+            <remarks>
+            See http://open.weibo.com/wiki/2/Statuses/friends 
+            A friend is a microblog user you are following.
+            </remarks>
+            <param name="screenName">The screen name of the user. If not provided, defaults to current user.</param>
+            <param name="cursor">The cursor. -1 means the first page. If provides, next cursor will be returned in the response.</param>
+            <param name="count">The count of a page. If not provided, defaults to 20.</param>
+            <returns>The friends retrieved.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFriends(System.Nullable{System.Int64},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the friends of the specified user.
+            </summary>
+            <remarks>
+            See http://open.weibo.com/wiki/2/Statuses/friends 
+            One of the <paramref name="userID"/> and <paramref name="screenName"/> should be provided. If not provided, defaults to current user.
+            </remarks>
+            <param name="userID">The user id.</param>
+            <param name="screenName">The screen name of the user.</param>
+            <param name="cursor">The cursor. -1 means the first page. If provides, next cursor will be returned in the response.</param>
+            <param name="count">The count of a page. If not provided, defaults to 20.</param>
+            <returns>The friends retrieved.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFollowers(System.Int64,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the followers of the specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/followers </remarks>
+            <param name="userID">The user id.</param>
+            <param name="cursor">The cursor. -1 means the first page. If provides, next cursor will be returned in the response.</param>
+            <param name="count">The count of a page. If not provided, defaults to 20.</param>
+            <returns>The followers retrieved.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFollowers(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the followers of the specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Statuses/followers </remarks>
+            <param name="screenName">The screen name of the user.</param>
+            <param name="cursor">The cursor. -1 means the first page. If provides, next cursor will be returned in the response.</param>
+            <param name="count">The count of a page. If not provided, defaults to 20.</param>
+            <returns>The followers retrieved.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFollowers(System.Nullable{System.Int64},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+             <summary>
+            Retrieves the followers of the specified user.
+             </summary>
+             <remarks>
+             See http://open.weibo.com/wiki/2/Statuses/followers 
+             One of the <paramref name="userID"/> and <paramref name="screenName"/> should be provided. If not provided, defaults to current user.
+             </remarks>
+             <param name="userID">The user id.</param>
+             <param name="screenName">The screen name of the user.</param>
+             <param name="cursor">The cursor. -1 means the first page. If provides, next cursor will be returned in the response.</param>
+             <param name="count">The count of a page. If not provided, defaults to 20.</param>
+             <returns>The followers retrieved.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.Follow(System.Nullable{System.Int64},System.String)">
+            <summary>
+            Follows a specified user to become a fan of him/her.
+            </summary>
+            <remarks>
+            One of the <paramref name="targetUserID"/> and <paramref name="targetUserScreenName"/> must be provided.
+            See http://open.weibo.com/wiki/2/Friendships/create
+            </remarks>
+            <param name="targetUserID">The id of the user to follow.</param>
+            <param name="targetUserScreenName">The screen name of the user to follow.</param>
+            <returns>The info of the user followed.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.Follow(System.Int64)">
+            <summary>
+            Follows a specified user to become a fan of him/her.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Friendships/create </remarks>
+            <param name="targetUserID">The id of the user to follow.</param>
+            <returns>The info of the user followed.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.Follow(System.String)">
+            <summary>
+            Follows a specified user to become a fan of him/her.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Friendships/create </remarks>
+            <param name="targetUserScreenName">The screen name of the user to follow.</param>
+            <returns>The info of the user followed.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.Unfollow(System.Nullable{System.Int64},System.String)">
+            <summary>
+            Unfollows a specified user.
+            </summary>
+            <remarks>One of the <paramref name="targetUserID"/> and <paramref name="targetUserScreenName"/> must be provided.
+            See http://open.weibo.com/wiki/2/Friendships/destroy
+            </remarks>
+            <param name="targetUserID">The id of the user to follow.</param>
+            <param name="targetUserScreenName">The screen name of the user to follow.</param>
+            <returns>The info of the user.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.Unfollow(System.Int64)">
+            <summary>
+            Unfollows a specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Friendships/destroy </remarks>
+            <param name="targetUserID">The id of the user to follow.</param>
+            <returns>The info of the user.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.Unfollow(System.String)">
+            <summary>
+            Unfollows a specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Friendships/destroy </remarks>
+            <param name="targetUserScreenName">The screen name of the user to follow.</param>
+            <returns>The info of the user.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.ExistsFriendship(System.Int64,System.Int64)">
+            <summary>
+            Checks whether <paramref name="userAID"/> followed <paramref name="userBID"/>.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Friendships/exists </remarks>
+            <param name="userAID">The id of the user A.</param>
+            <param name="userBID">The id of the user B.</param>
+            <returns>The info of the user.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFriendshipInfo(System.Int64,System.Int64)">
+            <summary>
+            Retrieves the friendship info of the users identified by <paramref name="targetUserID"/> and <paramref name="sourceUserID"/>.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Friendships/show </remarks>
+            <param name="targetUserID">The id of the target user.</param>
+            <param name="sourceUserID">The id of the source user. If not provided, default to current user.</param>
+            <returns>The info of the friendship.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFriendshipInfo(System.String,System.String)">
+            <summary>
+            Retrieves the friendship info of the users identified by <paramref name="sourceUserScreenName"/> and <paramref name="targetUserScreenName"/>.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Friendships/show </remarks>
+            <param name="sourceUserScreenName">The screen name of the target user.</param>
+            <param name="targetUserScreenName">The screen name of the source user. If not provided, default to current user.</param>
+            <returns>The info of the friendship.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFollowingUserIDs(System.Int64,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the id of the users that the specified user is following.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Friends/ids </remarks>
+            <param name="userID">The id of the user. If not provided, defaults to current user.</param>
+            <param name="cursor">The cursor. -1 means the first page. If provides, next cursor will be returned in the response.</param>
+            <param name="count">The count of a page. If not provided, defaults to 20.</param>
+            <returns>The user ids.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFollowingUserIDs(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the id of the users that the specified user is following.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Friends/ids </remarks>
+            <param name="screenName">The id of the user. If not provided, defaults to current user.</param>
+            <param name="cursor">The cursor. -1 means the first page. If provides, next cursor will be returned in the response.</param>
+            <param name="count">The count of a page. If not provided, defaults to 20.</param>
+            <returns>The user ids.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFollowerUserIDs(System.Int64,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the id of the users who follows the specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Followers/ids </remarks>
+            <param name="userID">The id of the user. If not provided, defaults to current user.</param>
+            <param name="cursor">The cursor. -1 means the first page. If provides, next cursor will be returned in the response.</param>
+            <param name="count">The count of a page. If not provided, defaults to 20.</param>
+            <returns>The user ids.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFollowerUserIDs(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the id of the users who follows the specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Followers/ids </remarks>
+            <param name="screenName">The screen name of the user. If not provided, defaults to current user.</param>
+            <param name="cursor">The cursor. -1 means the first page. If provides, next cursor will be returned in the response.</param>
+            <param name="count">The count of a page. If not provided, defaults to 20.</param>
+            <returns>The user ids.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetTags(System.Int64,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the tags of the specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Tags </remarks>
+            <param name="userID">The id of the user.</param>
+            <param name="count">The count of a page. If not provided, defaults to 20.</param>
+            <param name="page">The page no.</param>
+            <returns>The tags returned.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetSuggestedTags(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the tags of the specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Tags/suggestions </remarks>
+            <param name="count">The count of a page. If not provided, defaults to 10.</param>
+            <param name="page">The page no.</param>
+            <returns>The tags returned.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.CreateTags(System.String[])">
+            <summary>
+            Retrieves the tags of the specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Tags/create </remarks>
+            <param name="tags">The tags. 10 at most for each user.</param>
+            <returns>The id of the tags returned.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.DeleteTag(System.Int64)">
+            <summary>
+            Deletes a user tag by the <paramref name="tagID"/>.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Tags/destroy </remarks>
+            <param name="tagID">The id of the tag.</param>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.DeleteTags(System.Int64[])">
+            <summary>
+            Deletes a bunch of user tags by the <paramref name="tagIDs"/>.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Tags/destroy_batch </remarks>
+            <param name="tagIDs">The ids of the tags to delete. At most 20 each time.</param>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetFavorites(System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the favorite of the current user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Favorites </remarks>
+            <param name="page">The page no.</param>
+            <returns>The statuses in favorite.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.AddToFavorite(System.Int64)">
+            <summary>
+            Adds the specified status into the favorite of current user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Favorites/create </remarks>
+            <param name="statusID">The id of the status to add to.</param>
+            <returns>The status info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.DeleteFromFavorite(System.Int64)">
+            <summary>
+            Deletes the specified status from the favorite of current user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Favorites/destroy </remarks>
+            <param name="statusID">The id of the status to delete from.</param>
+            <returns>The status info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.DeleteMultipleFromFavorite(System.Int64[])">
+            <summary>
+            Deletes the specified statuses from the favorite of current user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Favorites/destroy_batch </remarks>
+            <param name="statusIDs">The ids of the status to delete from.</param>
+            <returns>The status info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetBlockingList(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the block list of the specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Blocks/blocking </remarks>
+            <param name="count">The count of a page. If not provided, defaults to 20.</param>
+            <param name="page">The page no.</param>
+            <returns>The blocking users returned.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetBlockingListIDs(System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the user ids of the block list of the specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Blocks/blocking/ids </remarks>
+            <param name="count">The count of a page. If not provided, defaults to 20.</param>
+            <param name="page">The page no.</param>
+            <returns>The blocking users returned.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.Block(System.Nullable{System.Int64},System.String)">
+            <summary>
+            Blocks the specified user for current user.
+            </summary>
+            <remarks>
+            One of the <paramref name="userID"/> and <paramref name="screenName"/> must be specified.
+            See http://open.weibo.com/wiki/2/Blocks/create 
+            </remarks>
+            <param name="userID">The id of the user to block.</param>
+            <param name="screenName">The screen name of the user to block.</param>
+            <returns>The blocking user info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.Unblock(System.Nullable{System.Int64},System.String)">
+            <summary>
+            Unblocks the specified user from the block list of current user.
+            </summary>
+            <remarks>
+            One of the <paramref name="userID"/> and <paramref name="screenName"/> must be specified.
+            See http://open.weibo.com/wiki/2/Blocks/destroy 
+            </remarks>
+            <param name="userID">The id of the user to unblock.</param>
+            <param name="screenName">The screen name of the user to unblock.</param>
+            <returns>The blocking user info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.IsBlocked(System.Nullable{System.Int64},System.String)">
+            <summary>
+            Checks whether the specified user is in the block list of current user.
+            </summary>
+            <remarks>
+            One of the <paramref name="userID"/> and <paramref name="screenName"/> must be specified.
+            See http://open.weibo.com/wiki/2/Blocks/exists 
+            </remarks>
+            <param name="userID">The id of the user to check.</param>
+            <param name="screenName">The screen name of the user to check.</param>
+            <returns>The blocking user info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetUserTrends(System.Int64,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the trends(topic) of the specified user.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Trends </remarks>
+            <param name="userID">The id of the user. </param>
+            <param name="page">The page no.  If not provided, defaults to 1.</param>
+            <param name="count">The count of a page. If not provided, defaults to 10.</param>
+            <returns>The trends returned.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetHourTrends(System.Boolean)">
+            <summary>
+            Retrieves the trends(topic) of current hour.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Trends/hourly </remarks>
+            <param name="basedOnCurrentApp">Indicates whether to retrieve based on current app.</param>
+            <returns>The trends returned.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetDayTrends(System.Boolean)">
+            <summary>
+            Retrieves the trends(topic) of today.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Trends/daily </remarks>
+            <param name="basedOnCurrentApp">Indicates whether to retrieve based on current app.</param>
+            <returns>The trends returned.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetWeekTrends(System.Boolean)">
+            <summary>
+            Retrieves the trends(topic) of current week.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Trends/weekly </remarks>
+            <param name="basedOnCurrentApp">Indicates whether to retrieve based on current app.</param>
+            <returns>The trends returned.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetTrendStatuses(System.String)">
+            <summary>
+            Retrieves the statuses under the specified trend(topic).
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/2/Trends/statuses </remarks>
+            <param name="trendName">The name(hot word) of the trend.</param>
+            <returns>The statuses returned.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.FollowTrend(System.String)">
+            <summary>
+            Follows the specified trend(topic).
+            </summary>
+            <remarks>
+            If the current user already followed the trend, error 40028 is returned.
+            See http://open.weibo.com/wiki/2/Trends/follow </remarks>
+            <param name="trendName">The name(hot word) of the trend.</param>
+            <returns>The id of the trend followed.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.UnfollowTrend(System.Int64)">
+            <summary>
+            Unfollows the specified trend(topic).
+            </summary>
+            <remarks>
+            If the current user already followed the trend, error 40028 is returned.
+            See http://open.weibo.com/wiki/2/Trends/unfollow </remarks>
+            <param name="trendID">The id of the trend.</param>
+            <returns>A boolean value indicating whether the operation succeed.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.ProcessAsyncCallbackVoidResponse(AMicroblogAPI.Common.AsyncCallResult{System.String},AMicroblogAPI.Common.VoidAsyncCallback)">
+            <summary>
+            Processes async callback response for return-void type methods.
+            </summary>
+            <param name="result">The async call result.</param>
+            <param name="callback">The callback.</param>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.ProcessAsyncCallbackResponse``1(AMicroblogAPI.Common.AsyncCallResult{System.String},AMicroblogAPI.Common.AsyncCallback{``0},System.Func{System.String,System.String})">
+            <summary>
+            Processes async callback response by XML de-serialization.
+            </summary>
+            <typeparam name="T">The strong type represents the response content.</typeparam>
+            <param name="result">The async call result.</param>
+            <param name="preprocess">The func to preprocess the response content before XML de-serialization.</param>
+            <param name="callback">The callback.</param>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.ProcessAsyncCallbackResponseCustom``1(AMicroblogAPI.Common.AsyncCallResult{System.String},AMicroblogAPI.Common.AsyncCallback{``0},System.Func{System.String,``0})">
+            <summary>
+            Processes async callback response by customized logic.
+            </summary>
+            <typeparam name="T">The strong type represents the response content.</typeparam>
+            <param name="result">The async call result.</param>
+            <param name="customProcess">The func to preprocess the response content.</param>
+            <param name="callback">The callback.</param>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.ConstructPagedRecordsParams(System.Collections.Generic.ICollection{AMicroblogAPI.Common.ParamPair},System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <remarks/>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.ValidateArgument(System.Object,System.String)">
+            <summary>
+            Validates whether the specified augument is null or not.
+            </summary>
+            <param name="arg">The argument to validate.</param>
+            <param name="argName">The argument name.</param>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.ConvertToShortUrls(System.String)">
+            <summary>
+            【By刘显安】把长链接转短链接
+            </summary>
+            <param name="longUrl">原始长链接</param>
+            <returns>返回的短链信息</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.ConvertToShortUrls(System.String[])">
+            <summary>
+            Converts the specified <paramref name="longUrls"/> into short urls.
+            </summary>
+            <remarks>
+            Not login required.
+            See http://open.weibo.com/wiki/Short_url/shorten 
+            </remarks>
+            <param name="longUrls">The long urls. 20 at most each call. Make sure the long urls are url-encoded. i.e: http://open.weibo.com/wiki/API%E6%96%87%E6%A1%A3 </param>
+            <returns>The url info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.ConvertToLongUrls(System.String[])">
+            <summary>
+            Converts the specified <paramref name="shortUrls"/> back into original long urls.
+            </summary>
+            <remarks>
+            Not login required.
+            See http://open.weibo.com/wiki/Short_url/expand 
+            </remarks>
+            <param name="shortUrls">The long urls. 20 at most each call.</param>
+            <returns>The url info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetShortUrlSharedCount(System.String)">
+            <summary>
+            Retrieves the shared count of the specified <paramref name="shortUrl"/>.
+            </summary>
+            <remarks>
+            Not login required.
+            See http://open.weibo.com/wiki/Short_url/share/counts 
+            </remarks>
+            <param name="shortUrl">The short url.</param>
+            <returns>The url info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetShortUrlSharedStatuses(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the statuses in which the specified <paramref name="shortUrl"/> is shared.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/Short_url/share/statuses </remarks>
+            <param name="shortUrl">The short url.</param>
+            <param name="sinceID">Filter condition, only retrives the statuses after <paramref name="sinceID"/>.</param>
+            <param name="maxID">Filter condition, only retrives the statuses before <paramref name="maxID"/>.</param> 
+            <param name="page">The page index.</param>
+            <param name="count">The number of statuses to return, if not specified, default to 20.</param>
+            <returns>The statuses.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetShortUrlCommentCount(System.String)">
+            <summary>
+            Retrieves the comment count of the specified <paramref name="shortUrl"/>.
+            </summary>
+            <remarks>
+            Not login required.
+            See http://open.weibo.com/wiki/Short_url/comment/counts
+            </remarks>
+            <param name="shortUrl">The short url.</param>
+            <returns>The url info.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.AMicroblog.GetShortUrlComments(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Retrieves the comment in which the specified <paramref name="shortUrl"/> is shared.
+            </summary>
+            <remarks>See http://open.weibo.com/wiki/Short_url/comment/comments </remarks>
+            <param name="shortUrl">The short url.</param>
+            <param name="sinceID">Filter condition, only retrives the statuses after <paramref name="sinceID"/>.</param>
+            <param name="maxID">Filter condition, only retrives the statuses before <paramref name="maxID"/>.</param> 
+            <param name="page">The page index.</param>
+            <param name="count">The number of statuses to return, if not specified, default to 20.</param>
+            <returns>The comments.</returns>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.UpdateStatusWithPicInfo">
+            <summary>
+            Represents the update status with pic.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateStatusWithPicInfo.Status">
+            <summary>
+            The status text.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateStatusWithPicInfo.Pic">
+            <summary>
+            The location of pic file.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateStatusWithPicInfo.Latitude">
+            <summary>
+            纬度, 有效范围：-90.0到+90.0，+表示北纬。 
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateStatusWithPicInfo.Longitude">
+            <summary>
+            经度, 有效范围：-180.0到+180.0，+表示东经。
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.DirectMessages">
+            <summary>
+            Represents a set of direct message.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.DirectMessages.Items">
+            <summary>
+            Gets the direct messages.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.CounterType">
+            <summary>
+            Represents the type of counters.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.DataContract.CounterType.Comment">
+            <summary>
+            Represents comment counter.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.DataContract.CounterType.Mention">
+            <summary>
+            Represents mention counter.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.DataContract.CounterType.Message">
+            <summary>
+            Represents message counter.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.DataContract.CounterType.Follower">
+            <summary>
+            Represents follower counter.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.CounterInfo">
+            <summary>
+            Represents a counter info of a status.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.CounterInfo.StatusID">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.CounterInfo.Comments">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.CounterInfo.Forwards">
+            <remarks/>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.Comments">
+            <summary>
+            Represents a set of comment.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Comments.Items">
+            <summary>
+            Gets the comments.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Comments.PreviousCursor">
+            <summary>
+            Gets or sets the previous cursor.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Comments.NextCursor">
+            <summary>
+            Gets or sets the next cursor.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Comments.HasVisible">
+            <summary>
+            Unknown.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.Common.AMicroblogException">
+            <summary>
+            Represents the specific exception in AMicroblogAPI.
+            </summary>
+            <remarks>If it is a remote error, the <see cref="P:AMicroblogAPI.Common.AMicroblogException.IsRemoteError"/> is true and <see cref="P:AMicroblogAPI.Common.AMicroblogException.ErrorCode"/> is set.</remarks>
+            <example>
+            An remote error message is like: "40025:Error: repeated weibo text!". "40025" at the begining is a <see cref="P:AMicroblogAPI.Common.AMicroblogException.ErrorCode"/>.
+            </example>
+        </member>
+        <member name="M:AMicroblogAPI.Common.AMicroblogException.#ctor">
+            <remarks/>
+        </member>
+        <member name="M:AMicroblogAPI.Common.AMicroblogException.#ctor(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:AMicroblogAPI.Common.AMicroblogException.#ctor(System.Int32)">
+            <remarks/>
+        </member>
+        <member name="M:AMicroblogAPI.Common.AMicroblogException.#ctor(System.Int32,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:AMicroblogAPI.Common.AMicroblogException.#ctor(System.String,System.String[])">
+            <remarks/>
+        </member>
+        <member name="M:AMicroblogAPI.Common.AMicroblogException.#ctor(System.Int32,System.String,System.String[])">
+            <remarks/>
+        </member>
+        <member name="M:AMicroblogAPI.Common.AMicroblogException.#ctor(System.Int32,System.Exception)">
+            <remarks/>
+        </member>
+        <member name="M:AMicroblogAPI.Common.AMicroblogException.#ctor(System.String,System.Exception)">
+            <remarks/>
+        </member>
+        <member name="M:AMicroblogAPI.Common.AMicroblogException.#ctor(System.Int32,System.String,System.Exception)">
+            <remarks/>
+        </member>
+        <member name="M:AMicroblogAPI.Common.AMicroblogException.RetrieveErrorCode(System.String)">
+            <summary>
+            Retrieves the error code from the remoteErrorMessage.
+            </summary>
+            <param name="remoteErrorMessage">The error message from remote server.</param>
+            <returns>The error code if retrieved; otherwise empty.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.Common.AMicroblogException.GetLocalErrorMessage(System.Int32)">
+            <summary>
+            Retrieves a error message according to th specified error code.
+            </summary>
+            <param name="errorCode">The error code.</param>
+            <returns>The error message.</returns>
+        </member>
+        <member name="P:AMicroblogAPI.Common.AMicroblogException.IsRemoteError">
+            <summary>
+            Gets or sets a boolean value indicating whether the exception is from the remote server.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.AMicroblogException.ErrorCode">
+            <summary>
+            Gets or sets the error code.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.AMicroblogException.IsHandled">
+            <summary>
+            Gets or sets a boolean value indicating whether the exception is handled in previous exception handling process, like Unified Response Error Handling.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.Common.AMicroblogAPIConfigurationSection">
+            <summary>
+            Represents the configuration section of AMicroblogAPI.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.AMicroblogAPIConfigurationSection.ResponseErrorHandlingConfig">
+            <summary>
+            Gets or sets the response error handling configuration.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.Common.ResponseErrorHandlingConfiguration">
+            <summary>
+            Represents the response error handling configuration.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Common.ResponseErrorHandlingConfiguration.CreateNewElement">
+            <remarks/>
+        </member>
+        <member name="M:AMicroblogAPI.Common.ResponseErrorHandlingConfiguration.GetElementKey(System.Configuration.ConfigurationElement)">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.Common.ResponseErrorHandlingConfiguration.Enabled">
+            <summary>
+            Gets or sets a boolean value indicating whether the response error handling is enabled.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.Common.HandlerConfigurationElement">
+            <summary>
+            Represents the response error handler configuration.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.HandlerConfigurationElement.Type">
+            <summary>
+            Gets or sets the type property.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.HandlerConfigurationElement.ErrorCode">
+            <summary>
+            Gets or sets the error code pattern property.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.Common.HandlerConfiguration">
+            <summary>
+            Represents the response analyzed error handler configuration.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.Hyperlink">
+            <summary>
+            Represents a hyperlink.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Hyperlink.Uri">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Hyperlink.Text">
+            <remarks/>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.CommentInfo">
+            <summary>
+            Represents a comment.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.CommentInfo.CreatedAt">
+            <summary>
+            Gets or sets the creation time of the status.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.CommentInfo.ID">
+            <summary>
+            Gets or sets the stutus id.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.CommentInfo.Text">
+            <summary>
+            Gets or sets the status text.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.CommentInfo.Source">
+            <summary>
+            Gets or sets the source of the status.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.CommentInfo.User">
+            <summary>
+            Gets or sets the user who posts this comment.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.CommentInfo.Status">
+            <summary>
+            Gets or sets the status which this comment comments to.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.UpdateProfileInfo">
+            <summary>
+            Represents the update profile info.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateProfileInfo.ScreenName">
+            <summary>
+            Gets or sets the screen name.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateProfileInfo.Gender">
+            <summary>
+            Gets or sets the gender. f: female, m: male
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateProfileInfo.Province">
+            <summary>
+            Gets or sets the province.
+            </summary>
+            <remarks>
+            See http://open.weibo.com/wiki/%E7%9C%81%E4%BB%BD%E5%9F%8E%E5%B8%82%E7%BC%96%E7%A0%81%E8%A1%A8
+            </remarks>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateProfileInfo.City">
+            <summary>
+            Gets or sets the city. 1000 means unspecified
+            </summary>
+            <remarks>
+            See http://open.weibo.com/wiki/%E7%9C%81%E4%BB%BD%E5%9F%8E%E5%B8%82%E7%BC%96%E7%A0%81%E8%A1%A8
+            </remarks>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateProfileInfo.Description">
+            <summary>
+            Gets or sets the personal description. Less than 70 chinese chars.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.HttpRequests.OAuthHttpGet">
+            <summary>
+            Performs a OAuth token-attached HTTP-Get request to the resource identified by the <c>uri</c> 
+            with the combination of OAuth parameters and the specified <c>AdditionalParams</c>(optional).        
+            <remarks>
+            The signature is created upon the OAuth parameters and the specified <see cref="P:AMicroblogAPI.HttpRequests.OAuthHttpGet.Params"/>.
+            Do not put OAuth parameters in <see cref="P:AMicroblogAPI.HttpRequests.OAuthHttpGet.Params"/>, they are automatically included.
+            There are two ways to pass OAuth: 
+            1. Put OAuth authorization info in HTTP header; (This way seems not working when there are additional parameters(in addition to OAuth parameters). All combinations tried.); 
+            2. Put OAuth authorization info in query string.
+            This class uses way #2.
+            Hint: Cannot do both in the same request.
+            </remarks>
+            </summary>
+            <returns>The server response string(UTF8 decoded).</returns>
+        </member>
+        <member name="T:AMicroblogAPI.HttpRequests.HttpGet">
+            <summary>
+            Performs a simple/clean (non-token-attached) HTTP-Get request to the resource identified by the uri.
+            <remarks>
+            If there are qurey parameters, please add to <see cref="P:AMicroblogAPI.HttpRequests.HttpGet.Params"/>. 
+            They will be appended to the uri before making the request.
+            </remarks>
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpGet.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.HttpRequests.HttpGet"/> with the specified <paramref name="uri"/>.
+            </summary>
+            <param name="uri">The uri to identify a resource in the remote server.</param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.HttpGet.ConstructUri">
+            <summary>
+            Constructs the uri by appending the query parameters in <see cref="P:AMicroblogAPI.HttpRequests.HttpGet.Params"/>.
+            </summary>
+            <example>
+            For example: 
+            Before: http://api.t.sina.com.cn/statuses/public_timeline.xml 
+            After: http://api.t.sina.com.cn/statuses/public_timeline.xml?source=123123. 
+            </example>
+            <returns>The uri with query string appended.</returns>
+        </member>
+        <member name="P:AMicroblogAPI.HttpRequests.HttpGet.Params">
+            <summary>
+            Gets or sets parameters to be sent in the request query string.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.OAuthHttpGet.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.HttpRequests.OAuthHttpGet"/> with the specified <paramref name="uri"/>.
+            </summary>
+            <param name="uri">The uri to identify a resource in the remote server.</param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.OAuthHttpGet.ConstructUri">
+            <summary>
+            Constructs the uri by appending OAuth authorization query string and additional query parameters.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.OAuthHttpGet.CollectAllParams">
+            <summary>
+            Combines the OAuth basic parameters and additional parameters.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:AMicroblogAPI.HttpRequests.OAuthHttpGet.Params">
+            <summary>
+            Gets or sets additional parameters (in addition to the OAuth parameters) to be sent in the request.
+            <remarks>Usually API related parameters.</remarks>
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.HttpRequests.MultiPartHttpPost">
+            <summary>
+            Performs a multi-part (multipart/form-data) Http-Post request to the resource identified by the uri with the specified PartFields.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.MultiPartHttpPost.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.HttpRequests.MultiPartHttpPost"/> with the specified <paramref name="uri"/>.
+            </summary>
+            <param name="uri">The uri to identify a resource in the remote server.</param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.MultiPartHttpPost.WriteBody(System.IO.Stream)">
+            <summary>
+            See <see cref="M:AMicroblogAPI.HttpRequests.HttpPost.WriteBody(System.IO.Stream)"/>
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.HttpRequests.MultiPartHttpPost.PostData">
+            <summary>
+            Gets the data to post.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.HttpRequests.MultiPartHttpPost.PartFields">
+            <summary>
+            Gets the multi-part fields.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.TrendInfo">
+            <summary>
+            Represents a trend(topic).
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.TrendInfo.ID">
+            <summary>
+            Gets or sets the trend id.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.TrendInfo.HotWord">
+            <summary>
+            Gets or sets the hotword of the trend.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.TrendInfo.Hits">
+            <summary>
+            Gets or sets the number of hits the trend has.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.PeriodTrendInfo">
+            <summary>
+            Represents a trend(topic).
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PeriodTrendInfo.Name">
+            <summary>
+            Gets or sets the name of the trend.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PeriodTrendInfo.Query">
+            <summary>
+            Gets or sets the query of the trend.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PeriodTrendInfo.Mmount">
+            <summary>
+            Gets or sets the amount of the trend.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PeriodTrendInfo.Delta">
+            <summary>
+            Gets or sets the delta of the trend.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.UpdateStatusInfo">
+            <summary>
+            Represents the update status info.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateStatusInfo.Status">
+            <summary>
+            Gets or sets the status text.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateStatusInfo.ReplyTo">
+            <summary>
+            Gets or sets the id of a replying status.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateStatusInfo.Latitude">
+            <summary>
+            纬度, 有效范围：-90.0到+90.0，+表示北纬。 
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateStatusInfo.Longitude">
+            <summary>
+            经度, 有效范围：-180.0到+180.0，+表示东经。
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UpdateStatusInfo.Annotations">
+            <summary>
+            Gets or sets a json format string for annotation.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.Emotions">
+            <summary>
+            Represents a group of emotions.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Emotions.Items">
+            <summary>
+            Gets the emotions.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.StatusType">
+            <summary>
+            Defines types of status.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.DataContract.StatusType.All">
+            <summary>
+            Represents all type of status.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.DataContract.StatusType.Original">
+            <summary>
+            Represents original type of status.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.DataContract.StatusType.Picture">
+            <summary>
+            Represents Picture type of status.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.DataContract.StatusType.Video">
+            <summary>
+            Represents Video type of status.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.DataContract.StatusType.Music">
+            <summary>
+            Represents Music type of status.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.DirectMessageInfo">
+            <summary>
+            Represents the direct message.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.DirectMessageInfo.CreatedAt">
+            <summary>
+            Gets or sets the creation time of the direct message.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.DirectMessageInfo.ID">
+            <summary>
+            Gets or sets the direct message id.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.DirectMessageInfo.Text">
+            <summary>
+            Gets or sets the direct message's text.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.DirectMessageInfo.SenderID">
+            <summary>
+            Gets or sets the sender ID of the direct message.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.DirectMessageInfo.RecipientID">
+            <summary>
+            Gets or sets the receiver ID of the direct message.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.DirectMessageInfo.SenderScreenName">
+            <summary>
+            Gets or sets the sender's screen name.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.DirectMessageInfo.RecipientScreenName">
+            <summary>
+            Gets or sets the receiver's screen name.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.DirectMessageInfo.Sender">
+            <summary>
+            Gets or sets the sender of the direct message.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.DirectMessageInfo.Recipient">
+            <summary>
+            Gets or sets the recipient of the direct message.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.Common.AsyncCallResult`1">
+            <summary>
+            Represents the aync call result with the specified type of response data.
+            </summary>
+            <typeparam name="T">The type of the result data.</typeparam>
+        </member>
+        <member name="T:AMicroblogAPI.Common.AsyncCallResult">
+            <summary>
+            Represents the aync call result.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.AsyncCallResult.Success">
+            <summary>
+            Gets or sets a value indicates whether the call succeed.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.AsyncCallResult.Exception">
+            <summary>
+            Gets or sets the exception object if the call failed.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.Common.AsyncCallResult`1.Data">
+            <summary>
+            The return result of the call.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.StatusInfo">
+            <summary>
+            Represents the status info.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.CreatedAt">
+            <summary>
+            Gets or sets the creation time of the status.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.ID">
+            <summary>
+            Gets or sets the stutus id.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.Text">
+            <summary>
+            Gets or sets the status text.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.Source">
+            <summary>
+            Gets or sets the source of the status.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.Favorited">
+            <summary>
+            Gets or sets a boolead indicates whether the status is favarited.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.Truncated">
+            <summary>
+            Gets or sets a boolead indicates whether the status is truncated.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.ReplyTo">
+            <summary>
+            Gets or sets the mid.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.ReplyToUserId">
+            <summary>
+            Gets or sets the mid.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.ReplyToUserScreenName">
+            <summary>
+            Gets or sets the mid.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.ThumbnailPic">
+            <summary>
+            Gets or sets the thumbnail_pic.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.MiddlePic">
+            <summary>
+            Gets or sets the bmiddle_pic.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.OriginalPic">
+            <summary>
+            Gets or sets the original_pic.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.Mid">
+            <summary>
+            Gets or sets the mid.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.User">
+            <summary>
+            Gets or sets the user who posts this status.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.Geo">
+            <summary>
+            Gets or sets the user who posts this status.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.StatusInfo.RetweetedStatus">
+            <summary>
+            Gets or sets the status that current status is reposted with.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.UnreadInfo">
+            <summary>
+            Represents the unread counters info.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UnreadInfo.NewStatuses">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UnreadInfo.Followers">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UnreadInfo.Messages">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UnreadInfo.Comments">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UnreadInfo.MentionStatuses">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UnreadInfo.MentionComments">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UnreadInfo.GroupMessages">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UnreadInfo.PrivateGroupMessages">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UnreadInfo.Notices">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UnreadInfo.Invites">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UnreadInfo.Badges">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UnreadInfo.PhotoMessages">
+            <remarks/>
+        </member>
+        <member name="T:AMicroblogAPI.HttpRequests.MultiPartField">
+            <summary>
+            Represents a muit-part field.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.MultiPartField.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.HttpRequests.MultiPartField"/>.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.MultiPartField.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.HttpRequests.MultiPartField"/> with the specified <paramref name="name"/> and <paramref name="value"/>.
+            </summary>
+            <param name="name">The name of the field.</param>
+            <param name="value">The value of the field.</param>
+        </member>
+        <member name="P:AMicroblogAPI.HttpRequests.MultiPartField.Name">
+            <summary>
+            Gets or sets the name of the multi-part field.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.HttpRequests.MultiPartField.Value">
+            <summary>
+            Gets or sets the value of the multi-part field.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.HttpRequests.MultiPartField.FilePath">
+            <summary>
+            Gets or sets the file path of the multi-part field it it is a file field.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.Statuses">
+            <summary>
+            Represents a set of status.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Statuses.Items">
+            <summary>
+            Gets the statuses.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Statuses.TotalCount">
+            <summary>
+            Gets or sets the total count.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Statuses.PreviousCursor">
+            <summary>
+            Gets or sets the previous cursor.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Statuses.NextCursor">
+            <summary>
+            Gets or sets the next cursor.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Statuses.HasVisible">
+            <summary>
+            Unknown.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.RelationshipPart">
+            <summary>
+            Represents a relationship part.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RelationshipPart.UserID">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RelationshipPart.ScreenName">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RelationshipPart.Following">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RelationshipPart.FollowedBy">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.RelationshipPart.NotificationsEnabled">
+            <remarks/>
+        </member>
+        <member name="T:AMicroblogAPI.HttpRequests.OAuthHttpDelete">
+            <summary>
+            Performs a OAuth token-attached HTTP-Delete request to the resource identified by the <c>uri</c>.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.OAuthHttpDelete.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.HttpRequests.OAuthHttpDelete"/> with the specified <paramref name="uri"/>.
+            </summary>
+            <param name="uri"></param>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.UserIDs">
+            <summary>
+            Represents the user ids.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserIDs.IDs">
+            <summary>
+            Gets the statuses.
+            </summary>        
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserIDs.NextCursor">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserIDs.PreviousCursor">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserIDs.TotalNumber">
+            <summary>
+            Gets or sets the total_number.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.UrlInfo">
+            <summary>
+            Represents a short and long url mapping.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UrlInfo.ShortUrl">
+            <summary>
+            Gets or sets the short url.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UrlInfo.LongUrl">
+            <summary>
+            Gets or sets the long url.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UrlInfo.Type">
+            <summary>
+            Gets or sets the type.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UrlInfo.SharedCount">
+            <summary>
+            Gets or sets the share count of the short url.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UrlInfo.CommentCount">
+            <summary>
+            Gets or sets the comment count of the short url.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.Trends">
+            <summary>
+            Represents a group of trends(topic).
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.Trends.Items">
+            <summary>
+            Gets the trends.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.EmotionType">
+            <summary>
+            Represents the type of emotion.
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.DataContract.EmotionType.Image">
+            <summary>
+            Represents the image type of emotion
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.DataContract.EmotionType.Magic">
+            <summary>
+            Represents the magic type of emotion
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.DataContract.EmotionType.Cartoon">
+            <summary>
+            Represents the cartoon type of emotion
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.HttpRequests.OAuthMultiPartHttpPost">
+            <summary>
+            Posts the multi-part fields in the post body with the OAuth authorization header in the request.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.OAuthMultiPartHttpPost.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:AMicroblogAPI.HttpRequests.OAuthMultiPartHttpPost"/> with the specified <paramref name="uri"/>.
+            </summary>
+            <param name="uri">The uri to identify a resource in the remote server.</param>
+        </member>
+        <member name="M:AMicroblogAPI.HttpRequests.OAuthMultiPartHttpPost.AppendHeaders(System.Net.WebHeaderCollection)">
+            <summary>
+            See <see cref="M:AMicroblogAPI.HttpRequests.HttpRequest.AppendHeaders(System.Net.WebHeaderCollection)"/>.
+            </summary>        
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.UserInfo">
+            <summary>
+            Represents a user.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.ID">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.ScreenName">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.Name">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.DefineAs">
+            <summary>
+            Gets or sets the markup(note) you set for this user.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.Province">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.City">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.Location">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.Description">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.Url">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.ProfileImageUrl">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.Domain">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.Gender">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.FollowersCount">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.FriendsCount">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.StatusesCount">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.FavouritesCount">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.CreatedAt">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.GeoEnabled">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.AllowAllActMsg">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.Following">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.Verified">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.UserInfo.LatestStatus">
+            <remarks/>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.EmotionInfo">
+            <summary>
+            Represents the emotion info.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.EmotionInfo.Phrase">
+            <summary>
+            Gets or sets the phrase represents the emotion.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.EmotionInfo.Type">
+            <summary>
+            Gets or sets the type of the emotion.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.EmotionInfo.Url">
+            <summary>
+            Gets or sets the url of the emotion.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.EmotionInfo.IsHot">
+            <summary>
+            Gets or sets a boolean value indicating whether the emotion is popular.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.EmotionInfo.IsCommon">
+            <summary>
+            Gets or sets a boolean value indicating whether the emotion is common.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.EmotionInfo.OrderNumber">
+            <summary>
+            Gets or sets order numer of the emotion.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.EmotionInfo.Category">
+            <summary>
+            Gets or sets the category of the emotion.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.Common.XmlSerializationHelper">
+            <summary>
+            Provides utility methods for xml serialization.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Common.XmlSerializationHelper.LoadFromFile``1(System.String)">
+            <summary>
+            Deserializes an object (type indicated by <typeparamref name="T"/>) loaded from the specified <paramref name="location"/>. 
+            </summary>
+            <typeparam name="T">The type of the object.</typeparam>
+            <param name="location">The file location.</param>
+            <returns>The object deserialized.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.Common.XmlSerializationHelper.SaveToFile(System.Object,System.String)">
+            <summary>
+            Serializes the <paramref name="target"/> object into xml and then saves it into the file specified by <paramref name="location"/>.
+            </summary>
+            <param name="target">The object to serialize.</param>
+            <param name="location">The file location.</param>
+        </member>
+        <member name="M:AMicroblogAPI.Common.XmlSerializationHelper.XmlToObject``1(System.String)">
+            <summary>
+            Deserializes an object (type indicated by <typeparamref name="T"/>) from the specified <paramref name="xml"/>.
+            </summary>
+            <typeparam name="T">The type of the object.</typeparam>
+            <param name="xml">The xml string.</param>
+            <returns>The object deserialized.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.Common.XmlSerializationHelper.XmlToObject(System.Type,System.String)">
+            <summary>
+            Deserializes an object (type indicated by <paramref name="type"/>) from the specified <paramref name="xml"/>.
+            </summary>
+            <param name="type">The type of the object.</param>
+            <param name="xml">The xml string.</param>
+            <returns>The object deserialized.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.Common.XmlSerializationHelper.ObjectToXml(System.Object)">
+            <summary>
+            Serializes the <paramref name="target"/> object into xml.
+            </summary>
+            <param name="target">The object to serialize.</param>
+            <returns>The xml string.</returns>
+        </member>
+        <member name="T:AMicroblogAPI.Common.ParamCollection">
+            <summary>
+            Represents the collection of <c>ParamPair</c>.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Common.ParamCollection.#ctor">
+            <summary>
+            Initializes a new instance of <c>ParamCollection</c>.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Common.ParamCollection.#ctor(System.Collections.Generic.IEnumerable{AMicroblogAPI.Common.ParamPair})">
+            <summary>
+            Initializes a new instance of <c>ParamCollection</c>.
+            </summary>
+            <param name="items">The items to add.</param>
+        </member>
+        <member name="M:AMicroblogAPI.Common.ParamCollection.Add(System.String,System.String)">
+            <summary>
+            Adds a name and value pari into the collection.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="T:AMicroblogAPI.Common.Constants">
+            <summary>
+            Defines constants used in AMicroBlogAPI.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.PeriodTrends">
+            <summary>
+            Represents a group of trends(topic).
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PeriodTrends.Trends">
+            <summary>
+            Gets or sets the time of the trend.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PeriodTrends.AsOf">
+            <summary>
+            Gets or sets the as-of of the trend.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.PeriodTrendsItems">
+            <summary>
+            Represents the items of period trends.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PeriodTrendsItems.Items">
+            <summary>
+            Gets the trends.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PeriodTrendsItems.Time">
+            <summary>
+            Gets or sets the time of the trend.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.PrivacyInfo">
+            <summary>
+            Represents the user privacy info.
+            </summary>
+            <remarks>
+            comment ： 谁可以评论此账号的微薄。0：所有人，1：我关注的人。
+            dm ： 谁可以给此账号发私信。0：所有人，1：我关注的人。
+            real_name： 是否允许别人通过真实姓名搜索到我， 0允许，1不允许。
+            geo ： 发布微博，是否允许微博保存并显示所处的地理位置信息。 0允许，1不允许。
+            badge ： 勋章展现状态，值—1私密状态，0公开状态。 
+            </remarks>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PrivacyInfo.BadgePrivacy">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PrivacyInfo.CommentPrivacy">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PrivacyInfo.GeoPrivacy">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PrivacyInfo.MessagePrivacy">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PrivacyInfo.MobilePrivacy">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PrivacyInfo.RealNamePrivacy">
+            <remarks/>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.PrivacyInfo.WebIMPrivacy">
+            <remarks/>
+        </member>
+        <member name="T:AMicroblogAPI.Common.OAuthHelper">
+            <summary>
+            Provides helper methods for OAuth purpose.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Common.OAuthHelper.ConstructOAuthHeader">
+            <summary>
+            Constructs the OAuth authorization header with the specified parameters. See RFC5849 section 3.4.1.3.2.
+            <remarks>
+            This method does the following:
+            1. Creates signature-base-string with the specified <paramref name="uri"/>, <paramref name="parameters"/> and the <paramref name="httpMethod"/>.
+            2. Creates signature upon signature-base-string with sign-key (by <see cref="P:AMicroblogAPI.Environment.AppKey"/> and <paramref name="tokenSecret"/>).
+            3. Constructs OAuth Authentication header.
+            </remarks>
+            </summary>
+            <param name="parameters">The parameters to used to construct OAuth authorization header(including OAuth protocol params and request-specific params).</param>
+            <param name="httpMethod">The HTTP methods, like POST, GET etc.</param>
+            <param name="uri">The uri.</param>
+            <param name="tokenSecret">The token secret. (Could be a request token secret or access token secret.)</param>
+            <returns>The OAuth authorization header string.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.Common.OAuthHelper.ConstructQueryString(System.Collections.Generic.IEnumerable{AMicroblogAPI.Common.ParamPair})">
+            <summary>
+            Constructs the query string. 
+            </summary>
+            <param name="parameters">The parameters to used to construct OAuth authorization header(including OAuth protocol params and request-specific params).</param>
+            <returns>The query string.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.Common.OAuthHelper.PreparePostBody(System.Collections.Generic.IEnumerable{AMicroblogAPI.Common.ParamPair})">
+            <summary>
+            Prepares a post body string for an access-token-required request.
+            </summary>
+            <param name="uri">The uri to identify the resource.</param>
+            <param name="customPostParams">Additional parameters (in addition to the OAuth parameters) to be included in the post body.</param>
+            <returns>The url-encoded post body string.</returns>
+        </member>
+        <member name="M:AMicroblogAPI.Common.OAuthHelper.ConstructPostBody(System.Collections.Generic.IEnumerable{AMicroblogAPI.Common.ParamPair})">
+            <summary>
+            Constructs the OAuth string for the Http-Post request's body.
+            </summary>
+            <param name="parameters">The parameters to used to construct OAuth authorization header(including OAuth protocol params and request-specific params).</param>
+            <param name="uri">The uri to identify the resource.</param>
+            <param name="accessTokenSecret">The access token secret.</param>
+            <returns>The OAuth string for a HTTP-Post body.</returns>
+        </member>
+        <member name="T:AMicroblogAPI.Common.JsonSerializationHelper">
+            <summary>
+            Provides methods for JSON serialization.
+            </summary>
+        </member>
+        <member name="M:AMicroblogAPI.Common.JsonSerializationHelper.JsonToObject``1(System.String)">
+            <summary>
+            Deserializers a JSON string into an strong-typed object.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonStr"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.TagID">
+            <summary>
+            Represents a tag id.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.TagID.ID">
+            <summary>
+            Gets the statuses.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.DataContract.GeoPoint">
+            <summary>
+            Represents a geo point.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.GeoPoint.Content">
+            <summary>
+            Gets or sets the geo content (in string form)
+            </summary>
+            <example>125.12 253.62</example>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.GeoPoint.Lat">
+            <summary>
+            Gets the latitude.
+            </summary>
+        </member>
+        <member name="P:AMicroblogAPI.DataContract.GeoPoint.Long">
+            <summary>
+            Gets the longitude.
+            </summary>
+        </member>
+        <member name="T:AMicroblogAPI.Common.APIUri">
+            <summary>
+            Defines the SINA micro-blog API's uris (in xml format if applicable).
+            </summary>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.WeiboUriPrefix">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.Authorize">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.AccessToken">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetUID">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.EndSession">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetRateLimitStatus">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.UpdateProfileImage">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.UpdateProfile">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.UpdatePrivacy">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetPrivacy">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.PublicTimeline">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.FriendsTimeline">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.HomeTimeline">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.UserTimeline">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetMentions">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetCountersOfCommentNForward">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetUnreadInfo">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.ResetCounter">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetEmotions">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.ShowStatus">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetStatusUrl">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.UpdateStatus">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.UpdateStatusWithPic">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.DeleteStatus">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.RepostStatus">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.SearchStatuses">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetComments">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.CommentsTimeline">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.CommentsByMe">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.CommentsToMe">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.ReplyComment">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.DeleteComment">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.DeleteComments">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.Comment">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetUserInfo">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetHotUsers">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetSuggestedUsers">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.SearchUsers">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetUserSearchSuggestions">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.UpdateRemark">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetFollowers">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetFriends">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.CreateFriendship">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.DeleteFriendship">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.ExistsFriendship">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetFriendshipInfo">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetFollowingUserIDs">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetFollowerUserIDs">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetTags">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.CreateTags">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.DeleteTag">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.DeleteTags">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetSuggestedTags">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetFavorites">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.AddToFavorite">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.DeleteFromFavorite">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.DeleteMultipleFromFavorite">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetBlockingList">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetBlockingListIDs">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.Block">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.Unblock">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.IsBlocked">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetUserTrends">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetHourTrends">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetDayTrends">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetWeekTrends">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetTrendStatuses">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.FollowTrend">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.UnfollowTrend">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.ConvertToShortUrls">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.ConvertToLongUrls">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetShortUrlSharedCount">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetShortUrlSharedStatuses">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetShortUrlCommentCount">
+            <remarks/>
+        </member>
+        <member name="F:AMicroblogAPI.Common.APIUri.GetShortUrlComments">
+            <remarks/>
+        </member>
+    </members>
+</doc>
